@@ -1,0 +1,25 @@
+{
+  "name": "node-ping",
+  "version": "1.0.0",
+  "description": "A ping wrapper for node.",
+  "main": "lib/ping.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NilsVanVaerenbergh/node-ping.git"
+  },
+  "keywords": [
+    "Ping"
+  ],
+  "author": "Nils Van Vaerenbergh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NilsVanVaerenbergh/node-ping/issues"
+  },
+  "homepage": "https://github.com/NilsVanVaerenbergh/node-ping#readme"
+}
