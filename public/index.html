@@ -13,9 +13,42 @@
     </form>
     <p id="message"></p>
 
+    <h2>Tasks</h2>
+    <ul id="task-list"></ul>
+
     <script>
         const form = document.getElementById("task-form");
         const message = document.getElementById("message");
+        const taskList = document.getElementById("task-list");
+
+        function renderTasks(tasks) {
+            taskList.innerHTML = "";
+            tasks.forEach((task) => {
+                const item = document.createElement("li");
+
+                const title = document.createElement("span");
+                title.textContent = task.title;
+                item.appendChild(title);
+
+                if (task.deadline) {
+                    const deadline = document.createElement("span");
+                    deadline.textContent = ` (${task.deadline})`;
+                    item.appendChild(deadline);
+                }
+
+                const status = document.createElement("span");
+                status.textContent = task.completed ? " [Completed]" : " [Incomplete]";
+                item.appendChild(status);
+
+                taskList.appendChild(item);
+            });
+        }
+
+        async function loadTasks() {
+            const response = await fetch("/api/tasks");
+            const tasks = await response.json();
+            renderTasks(tasks);
+        }
 
         form.addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -37,7 +70,10 @@
 
             message.textContent = `Task "${data.title}" created.`;
             form.reset();
+            await loadTasks();
         });
+
+        loadTasks();
     </script>
 </body>
 </html>
