@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Create Task</title>
+</head>
+<body>
+    <h1>Create a task</h1>
+    <form id="task-form">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" />
+        <button type="submit">Save</button>
+    </form>
+    <p id="message"></p>
+
+    <script>
+        const form = document.getElementById("task-form");
+        const message = document.getElementById("message");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const title = document.getElementById("title").value;
+            message.textContent = "";
+
+            const response = await fetch("/api/tasks", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                message.textContent = `Error: ${data.error}`;
+                return;
+            }
+
+            message.textContent = `Task "${data.title}" created.`;
+            form.reset();
+        });
+    </script>
+</body>
+</html>
